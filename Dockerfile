@@ -39,4 +39,4 @@ COPY --from=frontend-build /app/frontend/dist ./public
 EXPOSE 3001
 USER node
 
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/server.js"]
