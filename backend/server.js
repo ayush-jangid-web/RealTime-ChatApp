@@ -28,10 +28,6 @@ app.get("/health", (req, res) => {
     })
 })
 
-app.get("/", (req, res) => {
-    res.send("Hello from backend")
-})
-
 if (fs.existsSync(publicdir)) {
     app.use(express.static(publicdir))
     app.get("/{*any}", (req, res, next) => {
