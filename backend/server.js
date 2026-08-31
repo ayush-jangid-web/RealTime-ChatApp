@@ -3,13 +3,11 @@ import express from 'express'
 import cors from 'cors'
 import { clerkMiddleware } from '@clerk/express'
 import dbconnect from './src/config/db.js';
-
 import fs from 'fs'
 import path from "path";
 import job from "./src/lib/cron.js";
 
 const app = express();
-
 const publicdir = path.join(process.cwd(), "public");
 
 app.use(express.json());
@@ -20,6 +18,7 @@ app.use(cors({
 }));
 app.use(clerkMiddleware());
 
+app.use("/api/webhooks/clerk",express.raw({type:"application/clerk"}),clerkWebhook);
 
 app.get("/health", (req, res) => {
     res.status(200).json({
@@ -34,14 +33,10 @@ app.get("/", (req, res) => {
 
 if (fs.existsSync(publicdir)) {
     app.use(express.static(publicdir))
-
     app.get("/{*any}", (req, res, next) => {
         res.sendFile(path.join(publicdir, "index.html"), (err) => next(err))
     })
-
 }
-
-
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
