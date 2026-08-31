@@ -7,11 +7,12 @@ import fs from 'fs'
 import path from "path";
 import job from "./src/lib/cron.js";
 import clerkWebhook from './src/webhooks/clerk.webhook.js'
+import authRouter from './src/routes/auth.route.js'
 
 const app = express();
 const publicdir = path.join(process.cwd(), "public");
 
-app.use("/api/webhooks/clerk",express.raw({type:"application/json"}),clerkWebhook);
+app.use("/api/webhooks/clerk", express.raw({ type: "application/json" }), clerkWebhook);
 
 app.use(express.json());
 app.use(cors({
@@ -28,6 +29,8 @@ app.get("/health", (req, res) => {
         success: true
     })
 })
+
+app.use("/api/auth", authRouter)
 
 if (fs.existsSync(publicdir)) {
     app.use(express.static(publicdir))
