@@ -6,6 +6,7 @@ import dbconnect from './src/config/db.js';
 import fs from 'fs'
 import path from "path";
 import job from "./src/lib/cron.js";
+import clerkWebhook from './src/webhooks/clerk.webhook.js'
 
 const app = express();
 const publicdir = path.join(process.cwd(), "public");
