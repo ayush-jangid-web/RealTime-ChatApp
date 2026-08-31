@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "shx rm -rf dist && shx cp -R src dist",
+    "build": "shx rm -rf dist && shx mkdir -p dist && shx cp -R src dist/src && shx cp server.js dist/server.js",
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
