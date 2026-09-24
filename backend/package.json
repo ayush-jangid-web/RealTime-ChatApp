@@ -14,11 +14,13 @@
   "description": "",
   "dependencies": {
     "@clerk/express": "^2.1.64",
+    "@imagekit/nodejs": "^7.12.1",
     "cors": "^2.8.6",
     "cron": "^4.4.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "mongoose": "^9.9.4"
+    "mongoose": "^9.9.4",
+    "multer": "^2.4.0"
   },
   "devDependencies": {
     "shx": "^0.4.0"
