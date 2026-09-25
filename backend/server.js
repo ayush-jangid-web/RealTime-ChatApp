@@ -10,7 +10,8 @@ import clerkWebhook from './src/webhooks/clerk.webhook.js'
 import authRoutes from './src/routes/auth.route.js'
 import messageRoutes from './src/routes/message.route.js'
 
-const app = express();
+import { app, server } from "./src/lib/socket.js";
+
 const publicdir = path.join(process.cwd(), "public");
 
 app.use("/api/webhooks/clerk", express.raw({ type: "application/json" }), clerkWebhook);
@@ -42,7 +43,7 @@ if (fs.existsSync(publicdir)) {
 }
 
 const PORT = process.env.PORT
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     dbconnect()
     console.log(`server is running at http://localhost:${PORT}`)
 

@@ -1,6 +1,7 @@
 import userModel from "../models/user.model.js";
 import messageModel from "../models/message.model.js";
 import { hasImageKitConfig, uploadChatMedia } from "../lib/imageKit.js";
+import { getReceiverSocketId } from "../lib/socket.js";
 
 
 
@@ -108,6 +109,12 @@ export async function sendMessage(req, res) {
             image: imageurl,
             video: videourl
         })
+
+        const receiverSocketId = getReceiverSocketId(receiverId)
+        // only sends the message in realtime if user is online
+        if(receiverSocketId){
+            io.to(receiverSocketId).emit("newMessage",newMessage)
+        }
 
         res.status(201).json(newMessage)
 
